@@ -5,52 +5,108 @@ package io.brianabbott;
  */
 public class MyArrayList<T> {
 
-    public final T contents;
     private Object[] contentStorage;
 
-    public  MyArrayList(T obj){
-        contents = obj;
+    private int currentBlankIndexInArray = 0;
+
+    public MyArrayList(){
         contentStorage = new Object[10];
     }
 
-    public boolean add(T obj){
+    public MyArrayList(int arrayLength){
+        contentStorage = new Object[arrayLength];
+    }
 
-        return false;
+    public void add(T obj){
+        if(currentBlankIndexInArray == contentStorage.length-1){
+            resizeArray();
+        }
+        contentStorage[currentBlankIndexInArray] = obj;
+        currentBlankIndexInArray++;
+        return;
     }
 
     public void add(T obj,int index){
+        if(currentBlankIndexInArray == contentStorage.length-1){
+            resizeArray();
+        }
 
+        moveItemsRight(index);
+        contentStorage[index] = obj;
+        currentBlankIndexInArray++;
         return;
     }
 
-    public T get(int index) {
-        return null;
+    public T get(int index)  {
+        return (T)contentStorage[index];
     }
 
     public T remove(int index){
-        return null;
+        T removedObject = (T)contentStorage[index];
+        Object[] oneLessArray = new Object[contentStorage.length-1];
+
+        for(int i = 0; i < index;i++){
+            oneLessArray[i]=contentStorage[i];
+        }
+
+        for(int i = index;i<contentStorage.length-1;i++){
+            if(i == contentStorage.length-1) break;
+            oneLessArray[i]=contentStorage[i+1];
+        }
+        contentStorage = oneLessArray;
+        currentBlankIndexInArray--;
+        return removedObject;
     }
 
-    public boolean remove(T obj){
-        return false;
+    public void remove(T obj){
+        for(int i = 0; i <contentStorage.length;i++){
+            if(contentStorage[i].equals(obj)){
+                remove(i);
+                break;
+            }
+        }
     }
 
-    public void set(int index, T obj) {
-        return;
+    public void set(int index, T obj) throws IndexOutOfBoundsException {
+        if(contentStorage[index] == null){
+            throw new IndexOutOfBoundsException();
+        }
+        contentStorage[index]=obj;
     }
 
     public void clear(){
-        return;
+        contentStorage = new Object[10];
     }
 
     public boolean isEmpty(){
+        for(int i = 0; i < contentStorage.length;i++){
+            if(contentStorage[i]!= null){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean contains(Object obj){
+        for(int i = 0; i < contentStorage.length;i++){
+            if(contentStorage[i].equals(obj)){
+                return true;
+            }
+        }
         return false;
     }
 
-    public boolean contains(){
-        return false;
+    private void resizeArray(){
+        Object[] largerArray = new Object[contentStorage.length+10];
+        for(int i = 0; i < contentStorage.length;i++){
+            largerArray[i] = contentStorage[i];
+        }
+        contentStorage = largerArray;
     }
 
-
-
+    private void moveItemsRight(int index){
+        for(int x = contentStorage.length-1;x>index;x--){
+            contentStorage[x]=contentStorage[x-1];
+        }
+    }
 }
