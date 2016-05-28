@@ -5,7 +5,7 @@ package io.brianabbott;
  */
 public class MyArrayList<T> {
 
-    private Object[] contentStorage;
+    public Object[] contentStorage;
 
     private int currentBlankIndexInArray = 0;
 
@@ -15,6 +15,10 @@ public class MyArrayList<T> {
 
     public MyArrayList(int arrayLength){
         contentStorage = new Object[arrayLength];
+    }
+
+    public int getCurrentBlankIndexInArray() {
+        return currentBlankIndexInArray;
     }
 
     public void add(T obj){
@@ -88,8 +92,9 @@ public class MyArrayList<T> {
     }
 
     public boolean contains(Object obj){
+        if(isEmpty()) return false;
         for(int i = 0; i < contentStorage.length;i++){
-            if(contentStorage[i].equals(obj)){
+            if(contentStorage[i] == obj){
                 return true;
             }
         }

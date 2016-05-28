@@ -1,6 +1,5 @@
-package io.brianabbot;
+package io.brianabbott;
 
-import io.brianabbott.MyArrayList;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -14,6 +13,18 @@ public class MyArrayListSpec {
         MyArrayList<String> testStringList = new MyArrayList<>();
         String expectedFirstString = "Test";
         testStringList.add("Test");
+        testStringList.add("Test2");
+        testStringList.add("Test3");
+        testStringList.add("Test4");
+        testStringList.add("Test5");
+        testStringList.add("Test6");
+        testStringList.add("Test7");
+        testStringList.add("Test8");
+        testStringList.add("Test9");
+        testStringList.add("Test10");
+        testStringList.add("Test11");
+        testStringList.add("Test12");
+        testStringList.add("Test13");
         String actualFirstString = testStringList.get(0);
         assertEquals("The first object should be 'Test'",expectedFirstString,actualFirstString);
     }
@@ -36,12 +47,6 @@ public class MyArrayListSpec {
         testIntList.add(5);
         int actualFirstValue = testIntList.get(0);
         assertEquals("The first  value should be 5", expectedFirstValue,actualFirstValue);
-    }
-
-    @Test(expected = IndexOutOfBoundsException.class)
-    public void getObjectFailureTest() throws IndexOutOfBoundsException{
-        MyArrayList<Integer> testIntList = new MyArrayList<>();
-        int actualFirstValue = testIntList.get(0);
     }
 
     @Test
