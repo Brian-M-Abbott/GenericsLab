@@ -17,10 +17,6 @@ public class MyArrayList<T> {
         contentStorage = new Object[arrayLength];
     }
 
-    public int getCurrentBlankIndexInArray() {
-        return currentBlankIndexInArray;
-    }
-
     public void add(T obj){
         if(currentBlankIndexInArray == contentStorage.length-1){
             resizeArray();
